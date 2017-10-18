@@ -19021,11 +19021,18 @@ Once you have performed this implementation, the dataset will be stored in the v
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Answer:</p>
-<p>Data point 75 is an outlier for both Grocery and Detergent_Papers and Data point 154 is an outlier for both Milk and Grocery.
-All the data points which are outliers for Milk feature are: 86,98,154 and 356
+<ul>
+<li>Data point 75 is an outlier for both Grocery and Detergent_Papers </li>
+<li>Data point 154 is an outlier for categories Milk, Grocery and Delicatessan</li>
+<li>Data point 65 is an outlier for both Frozen and Fresh categories</li>
+<li>Data point 66 is an outlier for both Fresh and Delicatessan categories</li>
+<li>Data point 128 is an outlier for both Fresh and Delicatessan categories</li>
+</ul>
+<p>All the data points which are outliers for Milk feature are: 86,98,154 and 356
 All the data points which are outleirs for Grocery feature are: 75 and 154
-All the data points which are outliers for Detergents_Paper are: 75 and 161
-As previously noted Milk, Grocery and Detergents_paper have good correlation and removing thee outliers from these three features would make the correlation between these features even more stornger which would help in feature combination and selection later on. Hence all the outliers in these three features - 75,86,98,154,161,356 can be removed from data which are added to the outliers list - total of 6 data points
+All the data points which are outliers for Detergents_Paper are: 75 and 161</p>
+<p>As previously noted Milk, Grocery and Detergents_paper have good correlation and removing these outliers from these three features would make the correlation between these features even more stronger which would help in feature combination and selection later on in PCA. PCA decides the direction od maximal variance as its principal component. If an outlier is present in the data and if it's value is very high, it can effect the PCA Principal component direction and thus clustering. The algorithm decides the cluster based for a data point based on it's feature value. Some of the values in the selected outliers - Eg. Data point has a value which is very low. If the values of other features which strongly correlate with the outlier feature is also low, then there is a possibility that the algorithm might classify that point to be in a different cluster - The outliers selected in this case significantly effect the clustering algorithm and thus needs to be removed.
+Hence all the outliers in the three features - Grocery, Milk and Detergent_Paper(which strongly correlate with each other) - 75,86,98,154,161,356 can be removed from data which are added to the outliers list - total of 6 data points
 **</p>
 
 </div>
@@ -19409,10 +19416,11 @@ oQ6TiIiIiIhIFOowiYiIiIiIRKEOk4iIiIiISBTqMImIiIiIiEShDpOIiIiIiEgU6jCJiIiIiIhE
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Answer:</p>
-<p>A total of 70.74% o the variance in the data is explained by first two principal components - (0.4249 + 0.2825 = 0.7074)
+<p>A total of 70.74% of the variance in the data is explained by first two principal components - (0.4249 + 0.2825 = 0.7074)
 A total of 93.16% of the variance in the data is explained by first four principal components - (0.7074 + 0.1228 + 0.1014 = 0.9316)</p>
-<p>The first principal component - Dimension 1 is the direction which maximizes the variance (minimizes information loss). In this example, the variance is the type of customer. So the Dimension 1 tends to cover the purchases of all the different types of customer (clusters) present. In the first Dimension, the Detergents_Paper has the highest feature weight - which means that the Detergent_Paper purchase is high in most of the customer - no matter what the customer establishment is, they puchase Deteregent_Paper. As we go along the direction of Dimension 1 - direction of maximal variance, the Fresh foods and Frozen foods purchase decreases as they both have negative feature weights. This seem to indicate that the Fresh food puchase increase in a different direction i.e they are bought by specific customers - not the general population.
+<p>The first principal component - Dimension 1 is the direction which maximizes the variance (minimizes information loss). In this example, the variance is the type of customer. So the Dimension 1 tends to cover the purchases of all the different types of customer (clusters) present. In the first Dimension, the Detergents_Paper has the highest feature weight - which means that the Detergent_Paper purchase is high in most of the customer - no matter what the customer establishment is, they puchase Detergent_Paper in high quantity. As we go along the direction of Dimension 1 - direction of maximal variance, the Fresh foods and Frozen foods purchase decreases as they both have negative feature weights. This seem to indicate that the Fresh food puchase increase in a different direction i.e they are bought by specific customers - not the general population.
 The purchase of Detergent_Paper, Milk and Grocery is common for all the types of customer but Frozen and Fresh foods are purchased only by specific customers.</p>
+<p>The first four principal components covers almost 93% of the variation in data and they seem to be going in a direction in which the purchase quantity of Fresh foods is decreasing - as given by the negative feature weights. This indicates one cluster - which could be cafes/restaurants since they buy a lot of Fresh foods. The purchase amounts of other features - Milk, Grocery and Detergent_Papers seems to be increasing in the direction of first principal component. This indicates another cluster which could be supermarkets. Since the supermarkets come in various sizes - high end / medium etc, they buy different quantity of foods - which means different purchase amount and there is a lot of variation, that is why the principal components are in those direction and if there is one thing which is commom among all the supermarkts - that is that they don't buy Fresh foods in high quantity. This indicates two different customer establishments - one who buy high to medium quantity of Milk, Grocery and Detergent_Paper but low quantity of Fresh and the other who buy high amounts of Fresh foods but low to medium amount of other product category</p>
 <p>**</p>
 
 </div>
@@ -21620,7 +21628,7 @@ mg6BEAAAAICmQyAEAAAAoOkQCAEAAABoOv8fj0cXaj/gz+MAAAAASUVORK5CYII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Inverse transform the centers</span>
@@ -21634,6 +21642,7 @@ mg6BEAAAAICmQyAEAAAAoOkQCAEAAABoOv8fj0cXaj/gz+MAAAAASUVORK5CYII=
 <span class="n">true_centers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">true_centers</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 <span class="n">true_centers</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">segments</span>
 <span class="n">display</span><span class="p">(</span><span class="n">true_centers</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
 </pre></div>
 
 </div>
@@ -21699,6 +21708,115 @@ mg6BEAAAAICmQyAEAAAAoOkQCAEAAABoOv8fj0cXaj/gz+MAAAAASUVORK5CYII=
 
 </div>
 
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicatessen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>12000.297727</td>
+      <td>5796.265909</td>
+      <td>7951.277273</td>
+      <td>3071.931818</td>
+      <td>2881.493182</td>
+      <td>1524.870455</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>12647.328865</td>
+      <td>7380.377175</td>
+      <td>9503.162829</td>
+      <td>4854.673333</td>
+      <td>4767.854448</td>
+      <td>2820.105937</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>3.000000</td>
+      <td>55.000000</td>
+      <td>3.000000</td>
+      <td>25.000000</td>
+      <td>3.000000</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>3127.750000</td>
+      <td>1533.000000</td>
+      <td>2153.000000</td>
+      <td>742.250000</td>
+      <td>256.750000</td>
+      <td>408.250000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>8504.000000</td>
+      <td>3627.000000</td>
+      <td>4755.500000</td>
+      <td>1526.000000</td>
+      <td>816.500000</td>
+      <td>965.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>16933.750000</td>
+      <td>7190.250000</td>
+      <td>10655.750000</td>
+      <td>3554.250000</td>
+      <td>3922.000000</td>
+      <td>1820.250000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>112151.000000</td>
+      <td>73498.000000</td>
+      <td>92780.000000</td>
+      <td>60869.000000</td>
+      <td>40827.000000</td>
+      <td>47943.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -21720,8 +21838,15 @@ mg6BEAAAAICmQyAEAAAAoOkQCAEAAABoOv8fj0cXaj/gz+MAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>**Answer:</p>
-<p>Comparing the feature set of Segment 0 and Segment 1, we see that for Segment 0, the purchase amounts of Fresh foods and Frozen foods is higher than Segment 1, rest is lower. This means that Segment 0 customer purchases high quantity of Fresh and Frozen foods - this looks like a cafe.
-Segment 1 when compared with Segment 0 is quite the opposite - All the purchase amounts are higher except Fresh and Frozen foods. High quantity of Milk, Grocery, Detergent_Paper and a moderate quantity(but higher than Segment 0) is purchased by Segment 1 custmer. This seems to indicate that this is a supermarket.</p>
+<p>Comparing the feature set of Segment 0 and Segment 1, we see that for Segment 0, the purchase amounts of Fresh foods and Frozen foods is higher than Segment 1, rest is lower. 
+For Segment 0, the purchase amount of Fresh (3488.0) is significantly lower than its mean (12000.298). Same as is the case for Frozen foods - the mean is 3071.932 and the purchase amount of Segment 0 is 877.0. They are both barely above 25% of the data points but significantly lower than 50% of the data points of their respective category. The purchase amounts of Fresh and Frozen for Segment 1 are quite the opposite - they are significantly closer to their respective means and above 50% of the data points. Fresh purchase amount for Segment 1 is 9164.0 (mean is 12000.298) and for Frozen, it is 2140.0 (mean is 3071.932).
+Purchase amounts of other product categories Milk, Detergent_Paper and Grocery for Segment 0 are more close to norm and signifiantly closer to 75% of the data points. Whereas for Segment 1, the purchase amounts of Milk, Grocery and Detergent_Paper is significantly far from their respective means.
+Milk category mean is 5796.266 and Segment 1 value is 1986.0 - Segment 0 is closer (7739.0)
+Grocery category mean is 7951.277 and Segment 1 value is 2570.0 - Segment 0 is closer(12079.0)
+Detergent_Paper mean is 2881.493 and Segment 1 value is 314.0 - Segment 0 is significantly closer (4553.0).</p>
+<p>The purchase amount of Delicatessan for Segment 0 (998.0) is higher and closer to mean (1524.870) than for Segment 1 (680.0)</p>
+<p>This means that Segment 1 customer purchases high quantity of Fresh and Frozen foods - this looks like a cafe. 
+High quantity of Milk, Grocery, Detergent_Paper and a moderate quantity(but higher than Segment 0) of Delicatessan is purchased by Segment 1 custmer. This seems to indicate that this is a supermarket.</p>
 <p>**</p>
 
 </div>
